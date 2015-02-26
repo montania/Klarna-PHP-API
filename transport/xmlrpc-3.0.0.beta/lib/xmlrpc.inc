@@ -1666,8 +1666,10 @@
 			if ($this->debug > 1)
 			{
 				print "<PRE>\n---CURL INFO---\n";
-				foreach(curl_getinfo($curl) as $name => $val)
-					 print $name . ': ' . htmlentities($val). "\n";
+				foreach(curl_getinfo($curl) as $name => $val) {
+					$safeValue = is_array($val) ? join(', ', array_map('htmlentities', $val)) : htmlentities($val);
+					print $name . ': ' . $safeValue . "\n";
+				}
 				print "---END---\n</PRE>";
 			}
 
